@@ -1,0 +1,25 @@
+graph TD
+    A[Start / IDLE] --> B{Solicitare Predicție Nouă?};
+    B -- Da --> C(ACQUIRE_TRIP_PARAMS);
+    B -- Nu --> A;
+
+    C --> D[PREPROCESS_FEATURES];
+
+    subgraph Modul AI (MLP)
+        D --> E{LOAD_MLP_MODEL};
+        E --> F[RN_INFERENCE / Predictie Consum L];
+    end
+
+    F --> G{VALIDATE_PREDICTION};
+    G -- Invalid --> I(ERROR_PREDICT / Fallback);
+    G -- Valid --> H(CALCULATE_METRICS);
+
+    H --> J(DISPLAY_FORECAST);
+    I --> J;
+
+    J --> K{Acțiune Utilizator?};
+    K -- Noua Predicție --> A;
+    K -- Generare Raport --> L(GENERATE_REPORT);
+    K -- STOP --> Z[STOP];
+    L --> M(LOG_PREDICTION);
+    M --> Z;
