@@ -1,0 +1,30 @@
+model_parameters:
+  optimizer:
+    type: "Adam"
+    learning_rate: 0.001
+    scheduler: "Adaptive (ReduceLROnPlateau)"
+    justification: "Algoritm adaptiv; asigura convergenta stabila pentru date tabulare"
+
+training:
+  epochs_max: 2000
+  batch_size: 32
+  early_stopping:
+    enabled: True
+    patience_epochs: 5  
+    validation_split: 0.1
+    justification: "Prevenirea overfitting-ului prin oprirea antrenarii daca eroarea pe setul de validare nu scade timp de 5 epoci consecutive."
+
+  architecture:
+    hidden_layers: [32, 16]
+    activation_hidden: "ReLU"
+    activation_output: "Identity/Linear"
+    justification: "ReLU pentru non-liniaritate; Linear pentru predictia valorilor continue (Litri)"
+
+  loss_function:
+    type: "Mean Squared Error (MSE)"
+    justification: "Standard pentru regresie; penalizeaza erorile mari in predictia consumului"
+
+metrics_achieved:
+  mae_liters: 0.50
+  estimated_accuracy: "98.57%"
+  r2_score: 1.00

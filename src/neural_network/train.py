@@ -3,13 +3,14 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import r2_score
 import joblib
 from pathlib import Path
 
 THIS_FILE = Path(__file__).resolve()              
 NEURAL_NETWORK_DIR = THIS_FILE.parent            
 PROJECT_ROOT = NEURAL_NETWORK_DIR.parent.parent  
-DATA_DIR = PROJECT_ROOT / "data" / "raw"
+DATA_DIR = PROJECT_ROOT / "data" / "generated"
 
 
 CSV_FILES = [
@@ -64,13 +65,31 @@ def main():
     model = MLPRegressor(hidden_layer_sizes=(32, 16),
                             activation='relu',
                             solver='adam',
+                            learning_rate='adaptive',
+                            learning_rate_init=0.001,
+                            batch_size=32,
                             max_iter=2000,
-                            random_state=42)
+                            random_state=21,
+                            early_stopping=True,       
+                            validation_fraction=0.1,   
+                            n_iter_no_change=5
+                            )
     
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
     mae = mean_absolute_error(y_test, y_pred)
     print(f"[INFO] Mean Absolute Error pe setul de testare: {mae:.2f} litri")
+
+    history_df = pd.DataFrame(model.loss_curve_, columns=['loss'])
+    history_df.index.name = 'epoch'
+    history_df.to_csv('training_history.csv')
+    print("training_history.csv a fost generat!")
+
+    r2 = r2_score(y_test, y_pred)
+    accuracy_pct = (1 - (mae / y_test.mean())) * 100
+
+    print(f"R2 Score (Echivalent F1 pentru Regresie): {r2:.2f}")
+    print(f"Acuratete Estimata: {accuracy_pct:.2f}%")
 
     model_filename = "mlp_trip_fuel_model.joblib"
 

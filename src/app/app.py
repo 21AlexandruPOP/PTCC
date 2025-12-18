@@ -4,8 +4,15 @@ import joblib
 import streamlit as st
 
 
+from pathlib import Path
+
+# Schimba linia asta (probabil linia 11 sau 12 in app.py)
+# MODEL_PATH = Path("..") / "neural_network" / "mlp_trip_fuel_model.joblib"
+
+# Cu Calea Absoluta:
+# ATENTIE: Foloseste slash-uri (/) in loc de backslash-uri (\)
+# Calea ta completa este: C:\Users\AlexFix\OneDrive\Desktop\PTCC\src\neural_network\mlp_trip_fuel_model.joblib
 MODEL_PATH = Path(r"C:/Users/AlexFix/OneDrive/Desktop/PTCC/src/neural_network/mlp_trip_fuel_model.joblib")
-print(f"[DEBUG] Incarc modelul de la: {MODEL_PATH}")
 
 
 @st.cache_resource
@@ -33,7 +40,7 @@ col1, col2 = st.columns(2)
 with col1:
     distance_km = st.slider("Distanta (km)", 10, 500, 180, 10)
     city_share_pct = st.slider("Ponderea drumului urban (%)", 0, 100, 35)
-    persons_in_car = st.selectbox("Numar de persoane in masina", [1, 2, 3], index=1)
+    persons_in_car = st.selectbox("Numar de persoane in masina", [1, 2, 3, 4, 5], index=1)
     
 with col2:
     outside_temp_c = st.slider("Temperatura Exterioara (°C)", -10, 40, 15, 1)
@@ -48,6 +55,9 @@ with col4:
     avg_speed_hwy = st.number_input("Viteza medie extraurban (km/h)", 50, 140, 95)
 
 ac_val = 1 if ac_on == "Da" else 0
+
+st.subheader("Costuri")
+fuel_price = st.number_input("Pret combustibil (RON/L)", 5.0, 10.0, 7.5)
 
 if st.button("Estimeaza Consumul"):
 
@@ -65,19 +75,27 @@ if st.button("Estimeaza Consumul"):
     try:
         predicted_liters = float(model.predict(input_data)[0])
         l_per_100 = 100 * predicted_liters / distance_km
-        
+        total_cost = predicted_liters * fuel_price
         
         if predicted_liters <= 0:
             st.error("Eroare de Validare: Consumul prezis este negativ sau zero. Ajusteaza parametrii.")
         else:
     
-            st.success("Predicție realizata cu succes!")
-            
-            st.metric(
-                label="Consum Total Estimat", 
-                value=f"{predicted_liters:.2f} Litri", 
-                delta=f"{l_per_100:.2f} L/100km (Mediu)"
-            )
+            st.success("Predicție realizată cu succes!")
+
+            c1, c2 = st.columns(2)
+            with c1:
+                st.metric(
+                    label="Consum Total Estimat", 
+                    value=f"{predicted_liters:.2f} Litri", 
+                    delta=f"{l_per_100:.2f} L/100km"
+                )
+            with c2:
+                st.metric(
+                    label="Cost Estimat Calatorie", 
+                    value=f"{total_cost:.2f} RON",
+                    delta_color="inverse" # Rosu daca creste, e mai intuitiv
+                )
             st.markdown("---")
             st.markdown(f"**Detalii (Input-ul AI-ului):** Distanta: {distance_km}km, Oras: {city_share_pct}%, Persoane: {persons_in_car}, AC: {ac_on}")
 
