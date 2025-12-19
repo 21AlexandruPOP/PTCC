@@ -2,7 +2,7 @@
 
 **Disciplina:** Rețele Neuronale  
 **Instituție:** POLITEHNICA București – FIIR  
-**Student:** [Nume Prenume]  
+**Student:** [Pop Alexandru]  
 **Link Repository GitHub**
 **Data:** [Data]  
 ---
@@ -213,25 +213,25 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
 #### **Modul 1: Data Logging / Acquisition**
 
 **Funcționalități obligatorii:**
-- [ ] Cod rulează fără erori: `python src/data_acquisition/generate.py` sau echivalent LabVIEW
-- [ ] Generează CSV în format compatibil cu preprocesarea din Etapa 3
-- [ ] Include minimum 40% date originale în dataset-ul final
-- [ ] Documentație în cod: ce date generează, cu ce parametri
+- [x] Cod rulează fără erori: `python src/data_acquisition/generate.py` sau echivalent LabVIEW
+- [x] Generează CSV în format compatibil cu preprocesarea din Etapa 3
+- [x] Include minimum 40% date originale în dataset-ul final
+- [x] Documentație în cod: ce date generează, cu ce parametri
 
 #### **Modul 2: Neural Network Module**
 
 **Funcționalități obligatorii:**
-- [ ] Arhitectură RN definită și compilată fără erori
-- [ ] Model poate fi salvat și reîncărcat
-- [ ] Include justificare pentru arhitectura aleasă (în docstring sau README)
-- [ ] **NU trebuie antrenat** cu performanță bună (weights pot fi random)
+- [x] Arhitectură RN definită și compilată fără erori
+- [x] Model poate fi salvat și reîncărcat
+- [x] Include justificare pentru arhitectura aleasă (în docstring sau README)
+- [x] **NU trebuie antrenat** cu performanță bună (weights pot fi random)
 
 
 #### **Modul 3: Web Service / UI**
 
 **Funcționalități MINIME obligatorii:**
-- [ ] Propunere Interfață ce primește input de la user (formular, file upload, sau API endpoint)
-- [ ] Includeți un screenshot demonstrativ în `docs/screenshots/`
+- [x] Propunere Interfață ce primește input de la user (formular, file upload, sau API endpoint)
+- [x] Includeți un screenshot demonstrativ în `docs/screenshots/`
 
 **Ce NU e necesar în Etapa 4:**
 - UI frumos/profesionist cu grafică avansată
@@ -294,22 +294,22 @@ proiect-rn-[nume-prenume]/
 - [x] Repository structurat conform modelului de mai sus (verificat consistență cu Etapa 3)
 
 ### Modul 1: Data Logging / Acquisition
-- [ ] Cod rulează fără erori (`python src/data_acquisition/...` sau echivalent LabVIEW)
-- [ ] Produce minimum 40% date originale din dataset-ul final
-- [ ] CSV generat în format compatibil cu preprocesarea din Etapa 3
-- [ ] Documentație în `src/data_acquisition/README.md` cu:
-  - [ ] Metodă de generare/achiziție explicată
-  - [ ] Parametri folosiți (frecvență, durată, zgomot, etc.)
-  - [ ] Justificare relevanță date pentru problema voastră
-- [ ] Fișiere în `data/generated/` conform structurii
+- [x] Cod rulează fără erori (`python src/data_acquisition/...` sau echivalent LabVIEW)
+- [x] Produce minimum 40% date originale din dataset-ul final
+- [x] CSV generat în format compatibil cu preprocesarea din Etapa 3
+- [x] Documentație în `src/data_acquisition/README.md` cu:
+  - [x] Metodă de generare/achiziție explicată
+  - [x] Parametri folosiți (frecvență, durată, zgomot, etc.)
+  - [x] Justificare relevanță date pentru problema voastră
+- [x] Fișiere în `data/generated/` conform structurii
 
 ### Modul 2: Neural Network
-- [ ] Arhitectură RN definită și documentată în cod (docstring detaliat) - versiunea inițială 
+- [x] Arhitectură RN definită și documentată în cod (docstring detaliat) - versiunea inițială 
 - [ ] README în `src/neural_network/` cu detalii arhitectură curentă
 
 ### Modul 3: Web Service / UI
-- [ ] Propunere Interfață ce pornește fără erori (comanda de lansare testată)
-- [ ] Screenshot demonstrativ în `docs/screenshots/ui_demo.png`
+- [x] Propunere Interfață ce pornește fără erori (comanda de lansare testată)
+- [x] Screenshot demonstrativ în `docs/screenshots/ui_demo.png`
 - [ ] README în `src/app/` cu instrucțiuni lansare (comenzi exacte)
 
 ---
