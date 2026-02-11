@@ -173,9 +173,7 @@ Chiar dacă aplicația voastră este o clasificare simplă (user upload → clas
 ```markdown
 ### Justificarea State Machine-ului ales:
 
-Am ales arhitectura [descrieți tipul: monitorizare continuă / clasificare la senzor / 
-predicție batch / control în timp real] pentru că proiectul nostru [explicați nevoia concretă 
-din tabelul Secțiunea 1].
+Am ales arhitectura de Monitorizare Continuă cu Predicție la Cerere pentru că proiectul nostru are nevoie să proceseze dinamic variabilele de intrare (viteza, pasageri, stare AC) furnizate de utilizator sau senzori, pentru a genera un rezultat instantaneu.
 
 Stările principale sunt:
 1. [IDLE/START]: [Se asteapta input de la user]
@@ -288,9 +286,9 @@ proiect-rn-[nume-prenume]/
 - [x] Tabelul Nevoie → Soluție → Modul complet (minimum 2 rânduri cu exemple concrete completate in README_Etapa4_Arhitectura_SIA.md)
 - [x] Declarație contribuție 40% date originale completată în README_Etapa4_Arhitectura_SIA.md
 - [x] Cod generare/achiziție date funcțional și documentat
-- [ ] Dovezi contribuție originală: grafice + log + statistici în `docs/`
+- [x] Dovezi contribuție originală: grafice + log + statistici în `docs/`
 - [x] Diagrama State Machine creată și salvată în `docs/state_machine.*`
-- [ ] Legendă State Machine scrisă în README_Etapa4_Arhitectura_SIA.md (minimum 1-2 paragrafe cu justificare)
+- [x] Legendă State Machine scrisă în README_Etapa4_Arhitectura_SIA.md (minimum 1-2 paragrafe cu justificare)
 - [x] Repository structurat conform modelului de mai sus (verificat consistență cu Etapa 3)
 
 ### Modul 1: Data Logging / Acquisition

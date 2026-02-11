@@ -10,12 +10,12 @@ training:
   batch_size: 32
   early_stopping:
     enabled: True
-    patience_epochs: 5  
-    validation_split: 0.1
-    justification: "Prevenirea overfitting-ului prin oprirea antrenarii daca eroarea pe setul de validare nu scade timp de 5 epoci consecutive."
+    patience_epochs: 10  
+    validation_split: 0.15
+    justification: "Prevenirea overfitting-ului prin oprirea antrenarii daca eroarea pe setul de validare nu scade timp de 10 epoci consecutive."
 
   architecture:
-    hidden_layers: [32, 16]
+    hidden_layers: [64, 32]
     activation_hidden: "ReLU"
     activation_output: "Identity/Linear"
     justification: "ReLU pentru non-liniaritate; Linear pentru predictia valorilor continue (Litri)"
@@ -25,6 +25,6 @@ training:
     justification: "Standard pentru regresie; penalizeaza erorile mari in predictia consumului"
 
 metrics_achieved:
-  mae_liters: 0.50
-  estimated_accuracy: "98.57%"
+  mae_liters: 0.51
+  estimated_accuracy: "98.53%"
   r2_score: 1.00

@@ -2,7 +2,7 @@ import random
 import csv
 
 # SIMULARE DE CONSUM
-def simulate_fuel(distance, pct_city, avg_speed_city, avg_speed_hwy, ac_on, persons, tire_pressure, temp):
+def simuleaza_carburant(distance, pct_city, avg_speed_city, avg_speed_hwy, ac_on, persons, tire_pressure, temp):
 
     # consum de baza
     base_city = 10.3
@@ -13,35 +13,33 @@ def simulate_fuel(distance, pct_city, avg_speed_city, avg_speed_hwy, ac_on, pers
         base_city += 0.6
         base_hwy  += 0.3
 
-    # adaos pers
+    #adaos persoane
     extra_mass = (persons - 1) * 90  # ~90 kg per pasager
     base_city += extra_mass * 0.003
     base_hwy  += extra_mass * 0.0015
 
-    # adaos presiune
+    #adaos presiune pneuri
     if tire_pressure < 2.0:
-        base_city += 0.3
-        base_hwy  += 0.25
+        base_city += 0.5
+        base_hwy  += 0.3
 
-    # adaos temperatura foarte mica
+    #adaos temperatura scazuta
     if temp < 5:
-        base_city += 0.35
-        base_hwy  += 0.25
+        base_city += 0.4
+        base_hwy  += 0.2
 
-    # impartirea traseului pe segmente urban/extraurban
+    #calcul procent urban/extraurban
     city_fraction = pct_city / 100
     hwy_fraction  = 1 - city_fraction
 
     l_per_100 = base_city * city_fraction + base_hwy * hwy_fraction
 
-    # un adaos random (se pot intampla multe in trafic)
     noise = random.uniform(-0.3, 0.3)
 
     return (distance * l_per_100 / 100) + noise
 
-
-# GENERATORUL DE DATE
-def generate_data(n=2500):
+#GENERATORUL DE DATE
+def genereaza(n=2500):
     rows = []
 
     for _ in range(n):
@@ -54,7 +52,7 @@ def generate_data(n=2500):
         tire_pressure = random.choice([1.8, 2.0, 2.2, 2.25])
         temp = round(random.uniform(-10, 40), 1)
 
-        fuel = simulate_fuel(
+        fuel = simuleaza_carburant(
             distance, pct_city, avg_speed_city, avg_speed_hwy,
             ac_on, persons, tire_pressure, temp
         )
@@ -71,7 +69,6 @@ def generate_data(n=2500):
             round(fuel, 2)
         ])
 
-    # salvare in excel
     with open("generated_trips4.csv", "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow([
@@ -87,9 +84,7 @@ def generate_data(n=2500):
         ])
         writer.writerows(rows)
 
-    print("Fisier generat: generated_trips.csv")
+    print("a aparut generated_trips.csv")
 
-
-# RULEAZA GENERATORUL
 if __name__ == "__main__":
-    generate_data(2500)
+    genereaza(2500)

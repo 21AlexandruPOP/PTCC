@@ -2,21 +2,17 @@ from pathlib import Path
 import pandas as pd
 import joblib
 
-
 THIS_FILE = Path(__file__).resolve()
 NEURAL_NETWORK_DIR = THIS_FILE.parent  
 MODEL_FILE = NEURAL_NETWORK_DIR / "mlp_trip_fuel_model.joblib"
 
 print(f"[DEBUG] Modelul va fi incarcat de la: {MODEL_FILE}")
 
-def make_prediction():
-
-    if not MODEL_FILE.exists():
-        raise FileNotFoundError(f"Modelul AI nu a fost gasit la: {MODEL_FILE}. Ruleaza intai train_ml_regressor.py!")
+#Aici are loc magia
+def prezicemil():
 
     model = joblib.load(MODEL_FILE)
-    print("[INFO] Modelul MLP Regressor incarcat cu succes.")
-
+    print("Modelul a fost incarcat cu succes.")
 
     sample = pd.DataFrame([{
         "distance_km": 170,        
@@ -29,15 +25,14 @@ def make_prediction():
         "outside_temp_c": 6       
     }])
 
-
-    predicted_liters = float(model.predict(sample)[0])
-    l_per_100 = 100 * predicted_liters / sample["distance_km"].iloc[0]
-    estimate_cost = predicted_liters * 7.50  
-    print("\n==============================================")
-    print(f"[PREDICTIE] Consum Total Estimat: {predicted_liters:.2f} Litri")
-    print(f"[PREDICTIE] Consum Mediu Estimat: {l_per_100:.2f} L/100km")
-    print(f"[PREDICTIE] Cost Estimat: {estimate_cost:.2f} RON")
-    print("==============================================")
+    litrii_prezisi = float(model.predict(sample)[0])
+    lper100 = 100 * litrii_prezisi / sample["distance_km"].iloc[0]
+    costEstimat = litrii_prezisi * 7.50  
+    print("\n----------------------------------------------")
+    print(f"Consum Total Estimat: {litrii_prezisi:.2f} Litri")
+    print(f"Consum Mediu Estimat: {lper100:.2f} L/100km")
+    print(f"Cost Estimat: {costEstimat:.2f} RON")
+    print("-----------------------------------------------\n")
 
 if __name__ == "__main__":
-    make_prediction()
+    prezicemil()
